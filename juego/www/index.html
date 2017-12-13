@@ -7,16 +7,127 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/ionicons.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/style.css">
+
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic|Cinzel:400,700,900' rel='stylesheet' type='text/css'>                
     </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
+    <body>        
+        <div id="preloader"></div>
+        <section id="video-wrap">
+            <div id="video"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="logo text-center wow fadeInDown">
+                            <a href="#"><img src="assets/logo.png" alt="Layla"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 wow fadeInLeft" style="z-index: 9999;">
+                        <div class="headline-wrap">
+                            <h1 class="headline">
+                                Por ti, por mi, por el futuro recicla:
+                                <br>
+                                <span class="quotes">Agua</span>
+                                <span class="quotes">Papeles</span>
+                                <span class="quotes">Vidrio</span>
+                                <span class="quotes">Botellas</span>
+                                <span class="quotes">Plasticos</span>
+                                <span class="quotes">Otros</span>							
+                                <br>
+                                Tu puedes ayudar.
+                            </h1>
+                            <form role="form" id="subscribe-form" class="row">
+                                <div class="form-group col-xs-12">
+                                    <button name="jugar" class="form-control mc-btn" id="play-btn">JUGAR</button>
+                                </div>                                
+                            </form>
+                            <!-- SUCCESS OR ERROR MESSAGES -->
+                            <div id="subscription-response"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-5  wow fadeInRight">
+                        <div class="clock row">
+                            <div class="col-xs-3 col-sm-3 col-md-6">
+                                <div class="countdown-time-value clock-item clock-days">
+                                    <div class="wrap">
+                                        <div class="inner">
+                                            <div id="canvas-days" class="clock-canvas"></div>
+
+                                            <div class="text">
+                                                <p class="val">0</p>
+                                                <p class="type-days type-time">DAYS</p>
+                                            </div><!-- /.text -->
+                                        </div><!-- /.inner -->
+                                    </div><!-- /.wrap -->
+                                </div>
+                            </div><!-- /.clock-item -->
+
+                            <div class="col-xs-3 col-sm-3 col-md-6">
+                                <div class="clock-item clock-hours countdown-time-value">
+                                    <div class="wrap">
+                                        <div class="inner">
+                                            <div id="canvas-hours" class="clock-canvas"></div>
+
+                                            <div class="text">
+                                                <p class="val">0</p>
+                                                <p class="type-hours type-time">HOURS</p>
+                                            </div><!-- /.text -->
+                                        </div><!-- /.inner -->
+                                    </div><!-- /.wrap -->
+                                </div>
+                            </div><!-- /.clock-item -->
+
+                            <div class="col-xs-3 col-sm-3 col-md-6">
+                                <div class="clock-item clock-minutes countdown-time-value">
+                                    <div class="wrap">
+                                        <div class="inner">
+                                            <div id="canvas-minutes" class="clock-canvas"></div>
+
+                                            <div class="text">
+                                                <p class="val">0</p>
+                                                <p class="type-minutes type-time">MINUTES</p>
+                                            </div><!-- /.text -->
+                                        </div><!-- /.inner -->
+                                    </div><!-- /.wrap -->
+                                </div>
+                            </div><!-- /.clock-item -->
+
+                            <div class="col-xs-3 col-sm-3 col-md-6">
+                                <div class="clock-item clock-seconds countdown-time-value">
+                                    <div class="wrap">
+                                        <div class="inner">
+                                            <div id="canvas-seconds" class="clock-canvas"></div>
+
+                                            <div class="text">
+                                                <p class="val">0</p>
+                                                <p class="type-seconds type-time">SECONDS</p>
+                                            </div><!-- /.text -->
+                                        </div><!-- /.inner -->
+                                    </div><!-- /.wrap -->
+                                </div>
+                            </div><!-- /.clock-item -->
+                        </div>
+                    </div>
+                </div>
+            </div>           
+        </section>        
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+
+        <script src="js/modernizr.custom.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.videoBG.js"></script>
+        <script src="js/jquery.sticky-kit.min.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/kinetic.js"></script>
+        <script src="js/jquery.final-countdown.min.js"></script>
+        <script src="js/script.js"></script>
     </body>
 </html>
