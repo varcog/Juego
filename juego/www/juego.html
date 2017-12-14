@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>       
+        <!--        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">-->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Juego</title>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/ionicons.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/style.css">
+
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic|Cinzel:400,700,900' rel='stylesheet' type='text/css'>                
+    </head>
+    <body>        
+        <div id="preloader"></div>
+        <section id="video-wrap">
+            <div id="video"></div>
+            <div class="container" style="height: 100%; overflow: hidden;">
+                <div class="row">
+                    <!--                    <div class="col-md-12">
+                                            <div class="clock row">
+                                                <div class="col-xs-3 col-sm-3 col-md-6">
+                                                    <div class="countdown-time-value clock-item clock-days">
+                                                        <div class="wrap">
+                                                            <div class="inner">
+                                                                <div id="canvas-days" class="clock-canvas"></div>
+                    
+                                                                <div class="text">
+                                                                    <p class="val">0</p>
+                                                                    <p class="type-days type-time">DAYS</p>
+                                                                </div> /.text 
+                                                            </div> /.inner 
+                                                        </div> /.wrap 
+                                                    </div>
+                                                </div> /.clock-item 
+                    
+                                                <div class="col-xs-3 col-sm-3 col-md-6">
+                                                    <div class="clock-item clock-hours countdown-time-value">
+                                                        <div class="wrap">
+                                                            <div class="inner">
+                                                                <div id="canvas-hours" class="clock-canvas"></div>
+                    
+                                                                <div class="text">
+                                                                    <p class="val">0</p>
+                                                                    <p class="type-hours type-time">HOURS</p>
+                                                                </div> /.text 
+                                                            </div> /.inner 
+                                                        </div> /.wrap 
+                                                    </div>
+                                                </div> /.clock-item 
+                    
+                                                <div class="col-xs-3 col-sm-3 col-md-6">
+                                                    <div class="clock-item clock-minutes countdown-time-value">
+                                                        <div class="wrap">
+                                                            <div class="inner">
+                                                                <div id="canvas-minutes" class="clock-canvas"></div>
+                    
+                                                                <div class="text">
+                                                                    <p class="val">0</p>
+                                                                    <p class="type-minutes type-time">MINUTES</p>
+                                                                </div> /.text 
+                                                            </div> /.inner 
+                                                        </div> /.wrap 
+                                                    </div>
+                                                </div> /.clock-item 
+                    
+                                                <div class="col-xs-3 col-sm-3 col-md-6">
+                                                    <div class="clock-item clock-seconds countdown-time-value">
+                                                        <div class="wrap">
+                                                            <div class="inner">
+                                                                <div id="canvas-seconds" class="clock-canvas"></div>
+                    
+                                                                <div class="text">
+                                                                    <p class="val">0</p>
+                                                                    <p class="type-seconds type-time">SECONDS</p>
+                                                                </div> /.text 
+                                                            </div> /.inner 
+                                                        </div> /.wrap 
+                                                    </div>
+                                                </div> /.clock-item 
+                                            </div>
+                                        </div>-->
+                </div>
+                <div class="row">
+                    <canvas id="lienzo" style="width: 100vw; height: 100vh; position: absolute;"></canvas>
+                </div>
+            </div>          
+        </section>     
+        <img style="display: none;" src="assets/basurero.png" alt=""/>
+
+        <!--<script type="text/javascript" src="cordova.js"></script>-->
+
+        <script src="js/modernizr.custom.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.videoBG.js"></script>
+        <script src="js/jquery.sticky-kit.min.js"></script>
+        <script src="js/wow.min.js"></script>
+        <!--<script src="js/kinetic.js"></script>-->
+        <!--<script src="js/jquery.final-countdown.min.js"></script>-->
+        <script src="js/juego.js"></script>
+    </body>
+</html>
