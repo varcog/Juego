@@ -1,0 +1,125 @@
+/* ESTILOS NORMALES (para móviles en vertical)
+   ========================================================================= */
+
+html, body, #video-wrap{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.lienzo_n1, 
+.lienzo {
+    height: 100%;
+}
+.lienzo_n1 > .basureros,
+.lienzo > .basureros {
+    height: 50%;
+    width: 100%;
+}
+
+.lienzo_n1 > .basureros > .row,
+.lienzo > .basureros > .row {
+    height: calc(50% - 20px); margin-top: 10px; margin-bottom: 10px;
+    display: flex;
+}
+
+.lienzo_n1 > .basureros .basurero,
+.lienzo > .basureros .basurero {
+    width:33.33333333%;
+    height: 100%;
+    display: inline-block;
+}
+
+.droppable_hover{
+    background: silver;
+}
+
+video{
+    top : 0 !important;
+    left:0 !important;
+}
+
+
+.lienzo_n1 > .letras,
+.lienzo > .residuos {
+    height: calc(40% - 20px);
+    width: 100%;
+    margin-top: 10%;
+}
+
+.lienzo_n1 > .letras > .row{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 46%;
+}
+
+.lienzo_n1 > .letras .letra{
+    width: calc(33.33333333% - 30px);
+    height: calc(100% - 30px);
+    margin: 10px;
+    background: white;
+    border: 5px solid #a9a3a3;
+    border-radius: 10px;
+    box-shadow: 6px 6px 5px 0px #806f6f;
+}
+
+.residuos img{
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+}
+
+.lienzo > .residuos {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* RESPONSIVE
+   ========================================================================= */
+
+/* Móviles en horizontal o tablets en vertical
+   ------------------------------------------------------------------------- */
+@media (min-width: 768px) { 
+    .lienzo_n1,
+    .lienzo {
+        height: 100%;
+        display: flex;
+    }
+    .lienzo_n1 > .basureros,
+    .lienzo > .basureros {
+        height: 100%;
+        width: 50%;
+        display: inline-block;
+    }
+
+    .lienzo_n1 > .letras,
+    .lienzo > .residuos {
+        height: 100%;
+        width: 40%;
+        margin-left: 10%;
+        margin-top: 0;
+        display: inline-block;
+    }
+
+    .lienzo_n1 > .letras > .row{
+        display: block;
+        height: 50%;
+    }
+
+    .lienzo_n1 > .letras .letra{
+        width: calc(100% - 30px);
+        height: calc(100vh / 6 - 30px);
+        margin: 10px 0;
+    }
+
+    .lienzo > .residuos {
+        flex-direction: row;
+    }
+}
