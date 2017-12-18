@@ -19,6 +19,18 @@ TABLE OF CONTENTS
 
 */
 
+html, body, #video-wrap{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+video{
+    top : 0 !important;
+    left:0 !important;
+}
+
+
 
 /* ///////////////////////////////////////////////////////////////////// 
 //  01 - Video 

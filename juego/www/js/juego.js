@@ -16,23 +16,24 @@ jQuery(document).ready(function ($) {
 var $ = jQuery;
 var vidWidth = $(window).width(), vidHeight = $(window).height();
 
-$("#video-wrap").css({
-    'height': vidHeight
-});
+//$("#video-wrap").css({
+//    'height': vidHeight
+//});
 
 $('#video').videoBG({
     mp4: 'assets/bg.mp4',
     ogv: 'assets/bg.ogv',
     webm: 'assets/bg.webm',
     poster: 'assets/poster.jpg',
-    scale: true,
-    zIndex: 0,
-    height: vidHeight
+//    scale: true,
+    fullscreen: true,
+    zIndex: -2
+//    height: vidHeight
 });
 
 // Navbar fixing
 
-$("#nav-menu").stick_in_parent()
+$("#nav-menu").stick_in_parent();
 
 
 // Calling Wow
@@ -102,102 +103,149 @@ $(function () {
 
 //</editor-fold>
 
-
 //<editor-fold defaultstate="collapsed" desc="BASURERO">
-var BASURERO_TIPO_GENERAL = 0;
-var BASURERO_TIPO_ORGANICO = 1;
-var BASURERO_TIPO_VIDRIO = 2;
-var BASURERO_TIPO_PLASTICO = 3;
-var BASURERO_TIPO_PAPEL = 4;
-var BASURERO_TIPO_INFECCIOSO = 5;
+var TIPO_GENERAL = 0;
+var TIPO_ORGANICO = 1;
+var TIPO_VIDRIO = 2;
+var TIPO_PLASTICO = 3;
+var TIPO_PAPEL = 4;
+var TIPO_INFECCIOSO = 5;
 
-function Basurero(x, y, t) {
-    this.posicion = {
-        x: x,
-        y: y
-    };
-    this.tipo = t;
-    this.imagen = new Image(); //imagen del muñeco
-    this.imagen.src = "assets/basurero.png";
+var nivel, cantidad_niveles;
+
+
+function drag_drop() {
+    $(".draggable").draggable({
+        cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+        revert: "invalid", // when not dropped, the item will revert back to its initial position
+        containment: "document",
+        helper: function (event) {
+            var clone = $(this).clone(true);
+            clone.width($(this).width());
+            clone.height($(this).height());
+            clone.removeClass("original");
+            return clone;
+        },
+        start: function (event, ui) {
+            $(this).css("opacity", "0");
+        },
+        stop: function (event, ui) {
+            $(this).css("opacity", "1");
+        },
+        cursor: "move"
+    });
+
+    $(".droppable").droppable({
+        accept: ".draggable",
+        hoverClass: "droppable_hover",
+        drop: function (event, ui) {
+            var $this = $(this);
+            if ($this.data("tipo") === ui.draggable.data("tipo")) {
+                ui.draggable.css("visibility", "hidden");
+                ui.draggable.data("ok", true);
+                if (nivel === 1) {
+                    switch ($this.data("tipo")) {
+                        case TIPO_GENERAL:
+                            $this.attr("src", "assets/basurero_letra_general.png");
+                            break;
+                        case TIPO_INFECCIOSO:
+                            $this.attr("src", "assets/basurero_letra_infeccionso.png");
+                            break;
+                        case TIPO_ORGANICO:
+                            $this.attr("src", "assets/basurero_letra_organico.png");
+                            break;
+                        case TIPO_PAPEL:
+                            $this.attr("src", "assets/basurero_letra_papel.png");
+                            break;
+                        case TIPO_PLASTICO:
+                            $this.attr("src", "assets/basurero_letra_plastico.png");
+                            break;
+                        case TIPO_VIDRIO:
+                            $this.attr("src", "assets/basurero_letra_vidrio.png");
+                            break;
+
+                    }
+                } else {
+                    ui.draggable.css("display", "none");
+                }
+                if (finalizo_nivel()) {
+                    next_nivel();
+                }
+            }
+        }
+    });
 }
 
-Basurero.prototype.paint = function (ctx) {
-    ctx.drawImage(this.imagen, this.posicion.x, this.posicion.y);
-};
+$(document).ready(function () {
+    $(".basurero_amarillo, .residuo_plastico, #letra_plastico").data("tipo", TIPO_PLASTICO);
+    $(".basurero_azul, .residuo_papel, #letra_papel").data("tipo", TIPO_PAPEL);
+    $(".basurero_gris, .residuo_general, #letra_general").data("tipo", TIPO_GENERAL);
+    $(".basurero_naranja, .residuo_organico, #letra_organico").data("tipo", TIPO_ORGANICO);
+    $(".basurero_rojo, .residuo_infeccioso, #letra_infeccioso").data("tipo", TIPO_INFECCIOSO);
+    $(".basurero_verde, .residuo_vidrio, #letra_vidrio").data("tipo", TIPO_VIDRIO);
 
-//</editor-fold>
+    drag_drop();
 
-//<editor-fold defaultstate="collapsed" desc="LETRAS">
-function Letra(x, y, t, ti) {
-    this.posicion = {
-        x: x,
-        y: y
-    };
-    this.texto = t;
-    this.mover = true;
-    this.tipo = ti;
-    this.basurero;
-}
+    nivel = 1;
+    cantidad_niveles = 5;
+    cargar_nivel();
+    $("#cerrar-btn").click(function () {
+        location.href = "index.html";
+    });
+});
 
-Letra.prototype.paint = function (ctx) {
-    ctx.fillStyle = "black";
-    ctx.strokeRect(this.posicion.x, this.posicion.y, 100, 50);
-    ctx.font = "bold 12px arial";
-    ctx.fillText("texto", this.posicion.x, this.posicion.y);
-};
-//</editor-fold>
-
-var canvas, ctx;
-function init() {
-    //INICIALIZAR CANVAS
-    canvas = document.getElementById("lienzo");
-    ctx = canvas.getContext("2d");
-    canvas.addEventListener('onmousedown', mousedown, false); //presiona
-    canvas.addEventListener('onmousemove', mousemove, false); //mueve
-    canvas.addEventListener('onmouseup', mouseup, false); // suelta
-    var w = canvas.clientWidth;
-    var h = canvas.clientHeight;
-    var rel = 354 / 450;
-    // INICIALIZAR BASUREROS
-    var basureros = [];
-    var xx, yy, bas;
-    for (var i = 0; i < basureros.length; i++) {
-        bas = new Basurero(10, 10, i);
-        bas.paint(ctx);
-        basureros.push(bas);
+function cargar_nivel() {
+    if (nivel === 1) {
+        $(".lienzo").css("display", "none");
+        $(".lienzo_n1").css("display", "");
+        $(".letra").css({
+            opacyti: 1,
+            visibility: "",
+            display: ""
+        }).data("ok", false);
+    } else {
+        $(".lienzo_n1").css("display", "none");
+        $(".lienzo").css("display", "");
+        $(".n2, .n3, .n4, .n5").css({
+            opacyti: 1,
+            visibility: "",
+            display: "none"
+        }).data("ok", false);
+        $(".n" + nivel).css({
+            opacyti: 1,
+            visibility: "",
+            display: ""
+        });
     }
+}
 
-    basureros.push(new Basurero(80, 10, BASURERO_TIPO_INFECCIOSO));
-    basureros.push(new Basurero(10, 80, BASURERO_TIPO_ORGANICO));
-    basureros.push(new Basurero(80, 80, BASURERO_TIPO_PAPEL));
-    basureros.push(new Basurero(80, 80, BASURERO_TIPO_PLASTICO));
-    basureros.push(new Basurero(80, 80, BASURERO_TIPO_VIDRIO));
-    // PINTAR BASUREROS
-    for (var i = 0; i < basureros.length; i++) {
-        basureros[i].paint(ctx);
+
+function finalizo_nivel() {
+    var fin = true;
+    if (nivel === 1) {
+        $(".letras .letra.original").each(function (i, res) {
+            if (!$(res).data("ok")) {
+                fin = false;
+                return false;
+            }
+        });
+    } else {
+        $(".residuos .n" + nivel + ".original").each(function (i, res) {
+            if (!$(res).data("ok")) {
+                fin = false;
+                return false;
+            }
+        });
     }
-    // INICIALIZAR LETRAS
-    var letras = [];
-    letras.push(new Letra(10, 10, "DESECHOS EN GENERAL"));
-    letras.push(new Letra(10, 10, "ORGÁNICA"));
-    letras.push(new Letra(10, 10, "ENVASES DE VIDRIO"));
-    letras.push(new Letra(10, 10, "PLÁSTICOS Y ENVASES DE VIDRIO"));
-    letras.push(new Letra(10, 10, "PAPEL"));
-    letras.push(new Letra(10, 10, "HOSPITALARIOS INFECCIOSOS"));
+    return fin;
 }
 
-function paint() {
+function next_nivel() {
+    nivel++;
+    if (nivel <= cantidad_niveles) {
+        cargar_nivel();
+    } else {
+        $("#modalGanaste").modal("show");
 
+    }
 }
-
-function mousedown(e) {
-
-}
-function mousemove(e) {
-
-}
-function mouseup(e) {
-
-}
-
-
